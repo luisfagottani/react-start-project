@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Switch } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { PRIVATE_ROUTES, NORMAL_ROUTES } from "./route";
+import PrivateRoute from "./route/modules/PrivateRoute";
+import NormalRoute from "./route/modules/NormalRoute";
+
+class App extends React.Component {
+  render() {
+    const privateRoutes = PRIVATE_ROUTES.map((route, key) => (
+      <PrivateRoute key={key} {...route} />
+    ));
+    const normalRoutes = NORMAL_ROUTES.map((route, key) => (
+      <NormalRoute key={key} {...route} />
+    ));
+
+    return (
+      <Switch>
+        {privateRoutes}
+        {normalRoutes}
+      </Switch>
+    );
+  }
 }
 
 export default App;
